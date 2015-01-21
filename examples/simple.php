@@ -3,10 +3,9 @@
  * Created by PhpStorm.
  * User: Jenner
  * Date: 15-1-21
- * Time: 下午10:07
+ * Time: 下午10:30
  */
 
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 $records = array(
     array(
@@ -43,9 +42,10 @@ $group_by_fields = [
 ];
 
 $group_by_value = [
-    'state', 'object',
-    'city' => function($value){
-            return count($value);
+    'state',
+    'object',
+    'city' => function($value_array){
+            return count($value_array);
         }
 ];
 
