@@ -43,11 +43,27 @@ $group_by_fields = [
 ];
 
 $group_by_value = [
-    'state', 'object',
+    'state',
+    'object',
     'city' => function($value){
             return count($value);
         }
 ];
 
-$grouped = \Jenner\Zebra\ArrayGroupBy::groupBy($records, $group_by_fields, $group_by_value);
+$group_by_fields_2 = [
+    'state' => function($value){
+            return 1;
+        }
+];
+
+$group_by_value_2 = [
+    'state',
+    'object',
+    'city' => function($value_array){
+            return count($value_array);
+        },
+];
+
+$grouped = (new \Jenner\Zebra\ArrayGroupBy($records))->groupByField($group_by_fields)->groupByValue($group_by_value)->groupByField($group_by_fields_2)->groupByValue($group_by_value_2)->get();
+
 print_r($grouped);

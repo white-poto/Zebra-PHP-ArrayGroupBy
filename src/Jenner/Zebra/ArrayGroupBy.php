@@ -10,19 +10,30 @@ namespace Jenner\Zebra;
 class ArrayGroupBy
 {
 
+    protected $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
     /**
-     * SQL的GROUP BY模拟方法
-     * @param $array 需要执行GROUP BY的二维数组
-     * @param $group_field group by 方法，
-     * 示例：['field_name' => function($field){ return strlen($field); }]
-     * 只要回调方法返回的值相同，就会执行group操作
-     * @param $value_field 对value的方法，例如sum，average等，回调方法可以自定义
-     * 示例：['field_name' => function(array $field_values) { return count($field_value); }, 'field_name_2' => function(array $field_values) { return array_sum($field_values) } ]
+     * 获取最终结果
      * @return array
      */
-    static function groupBy($array, $group_field, $value_field)
+    public function get()
     {
-        $group_by_field_params[] = $array;
+        return $this->data;
+    }
+
+    /**
+     * 根据字段汇总，这时产生的是归并结果
+     * @param $group_field
+     * @return $this
+     */
+    public function groupByField($group_field)
+    {
+        $group_by_field_params[] = $this->data;
         foreach ($group_field as $key => $value) {
             if (is_callable($value)) {
                 $group_by_field_params[] = $key;
@@ -33,10 +44,64 @@ class ArrayGroupBy
             }
         }
 
-        $grouped = call_user_func_array('\\Jenner\\Zebra\\ArrayGroupBy::groupByField', $group_by_field_params);
-        $deepest_array = self::getDeepestArray($grouped);
+        $grouped = call_user_func_array('\\Jenner\\Zebra\\ArrayGroupBy::groupByFieldDeep', $group_by_field_params);
+        $this->data = self::getDeepestArray($grouped);
 
-        return self::groupByValue($deepest_array, $value_field);
+        return $this;
+    }
+
+    /**
+     * 根据字段进行归并计算，产生最终结果，可以进一步汇总归并
+     * @param $callbacks ['field_name'=>function(){}, 'field_name'=>['callback'=>function(){}, 'as'=>'as_name']]
+     * @return $this
+     */
+    public function groupByValue($callbacks)
+    {
+        $grouped_arr = $this->data;
+        $result = [];
+        $count = count($grouped_arr);
+        for ($i = 0; $i < $count; $i++) {
+            $result[$i] = [];
+            foreach ($callbacks as $field_name => $field_config) {
+                //支持'field_name'=>callback配置
+                if (is_callable($field_config)) {
+                    $callback = $field_config;
+                    $result[$i][$field_name] = call_user_func($callback, self::arrayColumn($grouped_arr[$i], $field_name));
+                } //支持'field_name'=>['callback'=>callback, 'as'=>'as_name']配置
+                elseif (is_array($field_config)) {
+                    if (isset($field_config['callback']) && is_callable($field_config['callback'])) {
+                        $callback = $field_config['callback'];
+                        $field_value = call_user_func($callback, self::arrayColumn($grouped_arr[$i], $field_name));
+                    } else {
+                        $field_value = $grouped_arr[$i][0][$field_name];
+                    }
+
+                    if (isset($field_config['as']) && !empty($field_config['as'])) {
+                        $result[$i][$field_config['as']] = $field_value;
+                    } else {
+                        $result[$i][$field_name] = $field_value;
+                    }
+                } //支持字符串配置
+                else {
+                    $result[$i][$field_config] = $grouped_arr[$i][0][$field_config];
+                }
+            }
+        }
+        $this->data = $result;
+
+        return $this;
+    }
+
+    /**
+     * 非链式，一次生成结果方法
+     * @param $data
+     * @param $group_field
+     * @param $group_value
+     * @return array
+     */
+    public static function groupBy($data, $group_field, $group_value)
+    {
+        return (new ArrayGroupBy($data))->groupByField($group_field)->groupByValue($group_value)->get();
     }
 
     /**
@@ -51,13 +116,13 @@ class ArrayGroupBy
      * @param null $callback
      * @return array
      */
-    static function groupByField($arr, $key, $callback = null)
+    public static function groupByFieldDeep($arr, $key, $callback = null)
     {
         if (!is_array($arr)) {
-            trigger_error("\\Jenner\\Zebra\\ArrayGroupBy::groupByField(): The first argument should be an array", E_USER_ERROR);
+            trigger_error("array_group_by(): The first argument should be an array", E_USER_ERROR);
         }
         if (!is_string($key) && !is_int($key) && !is_float($key)) {
-            trigger_error("\\Jenner\\Zebra\\ArrayGroupBy::array_group_by(): The key should be a string or an integer", E_USER_ERROR);
+            trigger_error("array_group_by(): The key should be a string or an integer", E_USER_ERROR);
         }
         // Load the new array, splitting by the target key
         $grouped = array();
@@ -75,51 +140,10 @@ class ArrayGroupBy
             $args = func_get_args();
             foreach ($grouped as $key => $value) {
                 $params = array_merge(array($value), array_slice($args, 3, func_num_args()));
-                $grouped[$key] = call_user_func_array('\Jenner\Zebra\ArrayGroupBy::groupByField', $params);
+                $grouped[$key] = call_user_func_array("\\Jenner\\Zebra\\ArrayGroupBy::groupByField", $params);
             }
         }
         return $grouped;
-    }
-
-    /**
-     * 根据groupby的结果，对
-     * @param $grouped_arr
-     * @param $callbacks ['field_name'=>function(){}, 'field_name'=>['callback'=>function(){}, 'as'=>'as_name']]
-     * @return array
-     */
-    static function groupByValue($grouped_arr, $callbacks)
-    {
-        $result = [];
-        $count = count($grouped_arr);
-        for ($i = 0; $i < $count; $i++) {
-            $result[$i] = [];
-            foreach($callbacks as $field_name=>$field_config){
-                //支持'field_name'=>callback配置
-                if(is_callable($field_config)){
-                    $callback = $field_config;
-                    $result[$i][$field_name] = call_user_func($callback, self::arrayColumn($grouped_arr[$i], $field_name));
-                }//支持'field_name'=>['callback'=>callback, 'as'=>'as_name']配置
-                elseif(is_array($field_config)){
-                    if(isset($field_config['callback']) && is_callable($field_config['callback'])){
-                        $callback = $field_config['callback'];
-                        $field_value = call_user_func($callback, self::arrayColumn($grouped_arr[$i], $field_name));
-                    }else{
-                        $field_value = $grouped_arr[$i][0][$field_name];
-                    }
-
-                    if(isset($field_config['as']) && !empty($field_config['as'])){
-                        $result[$i][$field_config['as']] = $field_value;
-                    }else{
-                        $result[$i][$field_name] = $field_value;
-                    }
-                }//支持字符串配置
-                else{
-                    $result[$i][$field_name] = $grouped_arr[$i][0][$field_config];
-                }
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -128,7 +152,7 @@ class ArrayGroupBy
      * @param $array
      * @return array
      */
-    static function getDeepestArray($array)
+    public static function getDeepestArray($array)
     {
         $result = [];
         foreach ($array as $arr) {
@@ -138,7 +162,7 @@ class ArrayGroupBy
                 $arr = [array_values($arr)];
                 $result = array_merge(array_values($result), $arr);
             } else {
-                $result = array_merge(array_values($result), call_user_func('\Jenner\Zebra\ArrayGroupBy::getDeepestArray', $arr));
+                $result = array_merge(array_values($result), call_user_func('\\Jenner\\Zebra\\ArrayGroupBy::getDeepestArray', $arr));
             }
         }
 
@@ -150,7 +174,7 @@ class ArrayGroupBy
      * @param $array
      * @return int
      */
-    static function arrayDepth($array)
+    public static function arrayDepth($array)
     {
         $max_depth = 1;
 
