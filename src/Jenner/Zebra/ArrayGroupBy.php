@@ -44,7 +44,7 @@ class ArrayGroupBy
             }
         }
 
-        $grouped = call_user_func_array('\\Jenner\\Zebra\\ArrayGroupBy::groupByFieldDeep', $group_by_field_params);
+        $grouped = call_user_func_array("\\Jenner\\Zebra\\ArrayGroupBy::groupByFieldDeep", $group_by_field_params);
         $this->data = self::getDeepestArray($grouped);
 
         return $this;
@@ -119,10 +119,10 @@ class ArrayGroupBy
     public static function groupByFieldDeep($arr, $key, $callback = null)
     {
         if (!is_array($arr)) {
-            trigger_error("array_group_by(): The first argument should be an array", E_USER_ERROR);
+            trigger_error('\Jenner\Zebra\ArrayGroupBy::groupByFieldDeep(): The first argument should be an array', E_USER_ERROR);
         }
         if (!is_string($key) && !is_int($key) && !is_float($key)) {
-            trigger_error("array_group_by(): The key should be a string or an integer", E_USER_ERROR);
+            trigger_error('\Jenner\Zebra\ArrayGroupBy::groupByFieldDeep(): The key should be a string or an integer', E_USER_ERROR);
         }
         // Load the new array, splitting by the target key
         $grouped = array();
@@ -162,7 +162,7 @@ class ArrayGroupBy
                 $arr = [array_values($arr)];
                 $result = array_merge(array_values($result), $arr);
             } else {
-                $result = array_merge(array_values($result), call_user_func('\\Jenner\\Zebra\\ArrayGroupBy::getDeepestArray', $arr));
+                $result = array_merge(array_values($result), call_user_func("\\Jenner\\Zebra\\ArrayGroupBy::getDeepestArray", $arr));
             }
         }
 
@@ -201,7 +201,7 @@ class ArrayGroupBy
     public static function arrayColumn($array, $column_key, $index_key = null)
     {
         if (!is_array($array) && !($array instanceof \ArrayAccess))
-            throw new \Exception('Argument 1 passed to Jenner\Zebra\ArrayGroupBy::::arrayColumn() must be of the type array');
+            throw new \Exception('Argument 1 passed to \Jenner\Zebra\ArrayGroupBy::::arrayColumn() must be of the type array');
 
         if (function_exists('array_column ')) {
             return array_column($array, $column_key, $index_key);
