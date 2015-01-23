@@ -27,6 +27,25 @@ class ArrayGroupBy
     }
 
     /**
+     * 计算结果count次数
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
+
+    /**
+     * 截取结果
+     * @param $start
+     * @param $length
+     */
+    public function limit($start, $length)
+    {
+        $this->data = array_slice($this->data, $start, $length);
+    }
+
+    /**
      * 根据字段汇总，这时产生的是归并结果
      * @param $group_field
      * @return $this
