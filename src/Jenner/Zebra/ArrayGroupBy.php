@@ -85,12 +85,12 @@ class ArrayGroupBy
                 //支持'field_name'=>callback配置
                 if (is_callable($field_config)) {
                     $callback = $field_config;
-                    $result[$i][$field_name] = call_user_func($callback, self::arrayColumn($grouped_arr[$i], $field_name));
+                    $result[$i][$field_name] = call_user_func($callback, $grouped_arr[$i]);
                 } //支持'field_name'=>['callback'=>callback, 'as'=>'as_name']配置
                 elseif (is_array($field_config)) {
                     if (isset($field_config['callback']) && is_callable($field_config['callback'])) {
                         $callback = $field_config['callback'];
-                        $field_value = call_user_func($callback, self::arrayColumn($grouped_arr[$i], $field_name));
+                        $field_value = call_user_func($callback, $grouped_arr[$i]);
                     } else {
                         $field_value = $grouped_arr[$i][0][$field_name];
                     }

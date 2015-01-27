@@ -35,8 +35,8 @@ $group_by_value = [
             },
         'as' => 'year'
     ],
-    'price' => function($value_array){
-            return array_sum($value_array);
+    'price' => function($data){
+            return array_sum(array_column($data, 'price'));
         },
 ];
 
@@ -61,73 +61,6 @@ Array
         )
 
 )
-```
-
-
-你也可以使用链式方法调用，对数据进行多次汇总，更加灵活：
-```php
-$records = [
-    ['bill_time'=>'2014-01-01 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-01 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-01 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-01 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-01 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-01 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-02 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-02 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-02 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-02 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-02 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-03 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-03 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-03 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-03 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-03 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
-    ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
-];
-
-
-$group_by_fields = [
-    'bill_time' => function($field){
-            return substr($field, 0, 10);
-        }
-];
-
-$group_by_values = [
-    'bill_time' => function($field_values){
-            return substr($field_values[0], 0, 10);
-        },
-    'price' => function($field_values){
-            return array_sum($field_values);
-        },
-    'cnt' => function($field_values){
-            return array_sum($field_values);
-        }
-];
-
-
-$week_fields = [
-    'bill_time' => function($field){
-            return date('w', strtotime($field));
-        }
-];
-
-$week_values = [
-    'bill_time' => function($field_values){
-            return date('w', strtotime($field_values[0]));
-        },
-    'price' => function($field_values){
-            return array_sum($field_values);
-        },
-    'cnt' => function($field_values){
-            return array_sum($field_values);
-        }
-];
-
-$grouped = (new \Jenner\Zebra\ArrayGroupBy($records))->groupByField($group_by_fields)->groupByValue($group_by_values)->groupByField($week_fields)->groupByValue($week_values)->get();
-
-print_r($grouped);
 ```
 
 举例

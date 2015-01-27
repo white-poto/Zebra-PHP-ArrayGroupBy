@@ -25,6 +25,61 @@ $records = [
     ['bill_time'=>'2014-01-03 00:00:00', 'price'=>1, 'cnt'=>3,],
     ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
     ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-04 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-05 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-05 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-05 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-05 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-05 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-06 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-06 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-06 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-06 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-06 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-07 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-07 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-07 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-07 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-07 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-07 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-08 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-08 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-08 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-08 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-08 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-09 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-09 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-09 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-09 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-09 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-10 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-10 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-10 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-10 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-10 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-11 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-11 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-11 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-11 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-11 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-12 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-12 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-12 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-12 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-12 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-13 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-13 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-13 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-13 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-13 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-13 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-14 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-14 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-14 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-14 00:00:00', 'price'=>1, 'cnt'=>3,],
+    ['bill_time'=>'2014-01-14 00:00:00', 'price'=>1, 'cnt'=>3,],
 ];
 
 
@@ -54,14 +109,14 @@ $week_fields = [
 ];
 
 $week_values = [
-    'bill_time' => function($field_values){
-            return date('w', strtotime($field_values[0]));
+    'bill_time' => function($data){
+            return date('w', strtotime($data[0]['bill_time']));
         },
-    'price' => function($field_values){
-            return array_sum($field_values);
+    'price' => function($data){
+            return array_sum(array_column($data, 'price'));
         },
-    'cnt' => function($field_values){
-            return array_sum($field_values);
+    'cnt' => function($data){
+            return array_sum(array_column($data, 'cnt'));
         }
 ];
 

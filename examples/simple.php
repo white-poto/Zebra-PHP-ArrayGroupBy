@@ -44,8 +44,8 @@ $group_by_fields = [
 $group_by_value = [
     'state',
     'object',
-    'city' => function($value_array){
-            return count($value_array);
+    'city' => function($data){
+            return count($data);
         }
 ];
 
