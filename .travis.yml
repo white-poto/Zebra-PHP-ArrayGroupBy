@@ -7,4 +7,4 @@ php:
 install:
  - composer install
 
-script: php /tests/simple.php
+script: php ./tests/simple.php
