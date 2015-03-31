@@ -46,6 +46,30 @@ class ArrayGroupBy
     }
 
     /**
+     * 类似SQL ORDER BY 的多为数组排序函数
+     * example: $sorted = array_orderby($data, 'volume', SORT_DESC, 'edition', SORT_ASC);
+     *
+     * @return mixed
+     */
+    public function orderBy()
+    {
+        $args = \func_get_args();
+        $data = $this->data;
+        foreach ($args as $n => $field) {
+            if (\is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row)
+                    $tmp[$key] = $row[$field];
+                $args[$n] = $tmp;
+            }
+        }
+        $args[] = & $data;
+        \call_user_func_array('array_multisort', $args);
+
+        return \array_pop($args);
+    }
+
+    /**
      * 根据字段汇总，这时产生的是归并结果
      * @param $group_field
      * @return $this
