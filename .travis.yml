@@ -7,4 +7,4 @@ php:
 install:
  - composer install
 
-script: php test/simple.php
+script: pwd
