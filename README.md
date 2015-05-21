@@ -1,6 +1,6 @@
 Zebar-PHP-ArrayGroupBy
 =================
-[![Build Status](https://img.shields.io/travis/jenner/Zebra-PHP-ArrayGroupBy/master.svg?style=flat)](https://travis-ci.org/jenner/Zebra-PHP-ArrayGroupBy)
+[![Build Status](https://img.shields.io/travis/huyanping/Zebra-PHP-ArrayGroupBy/master.svg?style=flat)](https://travis-ci.org/huyanping/Zebra-PHP-ArrayGroupBy)
 [![Latest Stable Version](http://img.shields.io/packagist/v/jenner/array_group_by.svg?style=flat)](https://packagist.org/packages/jenner/array_group_by)
 [![Total Downloads](https://img.shields.io/packagist/dt/jenner/array_group_by.svg?style=flat)](https://packagist.org/packages/jenner/array_group_by)
 [![License](https://img.shields.io/packagist/l/jenner/array_group_by.svg?style=flat)](https://packagist.org/packages/jenner/array_group_by)
