@@ -1,5 +1,9 @@
 Zebar-PHP-ArrayGroupBy
 =================
+[![Build Status](https://img.shields.io/travis/jenner/array_group_by/master.svg?style=flat)](https://travis-ci.org/jenner/array_group_by)
+[![Latest Stable Version](http://img.shields.io/packagist/v/jenner/array_group_by.svg?style=flat)](https://packagist.org/packages/jenner/array_group_by)
+[![Total Downloads](https://img.shields.io/packagist/dt/jenner/array_group_by.svg?style=flat)](https://packagist.org/packages/jenner/array_group_by)
+[![License](https://img.shields.io/packagist/l/jenner/array_group_by.svg?style=flat)](https://packagist.org/packages/jenner/array_group_by)
 为什么使用Zebra-PHP-ArrayGroupBy
 ----------------------
 在如下场景中，我们总是希望能够在php中使用类似mysql的groupby操作：
