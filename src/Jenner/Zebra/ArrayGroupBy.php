@@ -183,7 +183,7 @@ class ArrayGroupBy
             $args = func_get_args();
             foreach ($grouped as $key => $value) {
                 $params = array_merge(array($value), array_slice($args, 3, func_num_args()));
-                $grouped[$key] = call_user_func_array("\\Jenner\\Zebra\\ArrayGroupBy::groupByField", $params);
+                $grouped[$key] = call_user_func_array("\\Jenner\\Zebra\\ArrayGroupBy::groupByFieldDeep", $params);
             }
         }
         return $grouped;
