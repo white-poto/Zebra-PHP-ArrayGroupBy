@@ -129,4 +129,7 @@ $week_values = [
 
 $grouped = (new \Jenner\Zebra\ArrayGroupBy($records))->groupByField($group_by_fields)->groupByValue($group_by_values)->groupByField($week_fields)->groupByValue($week_values)->get();
 print_r($grouped);
+
+// order by 示例
+$order_result = (new \Jenner\Zebra\ArrayGroupBy($records))->groupByField($group_by_fields)->groupByValue($group_by_values)->orderBy('bill_time', SORT_DESC, 'price', SORT_ASC);
 ```
