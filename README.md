@@ -15,6 +15,7 @@ Zebar-PHP-ArrayGroupBy能够做什么
 ----------------------
 + 对二维数组进行归并
 + 归并的同时，支持对字段进行自定义处理
++ 对数据组按照某一字段排序
 + 比SQL更灵活的自定义函数，你可以随意编写归并和字段合并函数
 
 示例：
@@ -127,9 +128,13 @@ $week_values = [
         }
 ];
 
-$grouped = (new \Jenner\Zebra\ArrayGroupBy($records))->groupByField($group_by_fields)->groupByValue($group_by_values)->groupByField($week_fields)->groupByValue($week_values)->get();
+$grouped = (new \Jenner\Zebra\ArrayGroupBy($records))
+            ->groupByField($group_by_fields)->groupByValue($group_by_values)
+            ->groupByField($week_fields)->groupByValue($week_values)->get();
 print_r($grouped);
 
 // order by 示例
-$order_result = (new \Jenner\Zebra\ArrayGroupBy($records))->groupByField($group_by_fields)->groupByValue($group_by_values)->orderBy('bill_time', SORT_DESC, 'price', SORT_ASC);
+$order_result = (new \Jenner\Zebra\ArrayGroupBy($records))
+            ->groupByField($group_by_fields)
+            ->groupByValue($group_by_values)->orderBy('bill_time', SORT_DESC, 'price', SORT_ASC);
 ```

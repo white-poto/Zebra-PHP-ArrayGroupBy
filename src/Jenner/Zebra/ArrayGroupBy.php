@@ -18,7 +18,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 获取最终结果
+     * get result
+     *
      * @return array
      */
     public function get()
@@ -27,7 +28,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 计算结果count次数
+     * like sql `count`
+     *
      * @return int
      */
     public function count()
@@ -36,7 +38,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 截取结果
+     * like mysql `limit`
+     *
      * @param $start
      * @param $length
      */
@@ -46,8 +49,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 类似SQL ORDER BY 的多为数组排序函数
-     * example: $sorted = array_orderby($data, 'volume', SORT_DESC, 'edition', SORT_ASC);
+     * like sql `group by`
+     * example: $sorted = $obj->orderBy($data, 'volume', SORT_DESC, 'edition', SORT_ASC);
      *
      * @return mixed
      */
@@ -70,7 +73,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 根据字段汇总，这时产生的是归并结果
+     * group by based on fields
+     *
      * @param $group_field
      * @return $this
      */
@@ -94,7 +98,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 根据字段进行归并计算，产生最终结果，可以进一步汇总归并
+     * group by field and return the final result
+     *
      * @param $callbacks ['field_name'=>function(){}, 'field_name'=>['callback'=>function(){}, 'as'=>'as_name']]
      * @return $this
      */
@@ -124,7 +129,7 @@ class ArrayGroupBy
                     } else {
                         $result[$i][$field_name] = $field_value;
                     }
-                } //支持字符串配置
+                } // support string field
                 else {
                     $result[$i][$field_config] = $grouped_arr[$i][0][$field_config];
                 }
@@ -136,7 +141,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 非链式，一次生成结果方法
+     * not chain method
+     *
      * @param $data
      * @param $group_field
      * @param $group_value
@@ -158,14 +164,17 @@ class ArrayGroupBy
      *
      * @param null $callback
      * @return array
+     * @throws \Exception
      */
     public static function groupByFieldDeep($arr, $key, $callback = null)
     {
         if (!is_array($arr)) {
-            trigger_error('\Jenner\Zebra\ArrayGroupBy::groupByFieldDeep(): The first argument should be an array', E_USER_ERROR);
+            $message = '\Jenner\Zebra\ArrayGroupBy::groupByFieldDeep(): The first argument should be an array';
+            throw new \InvalidArgumentException($message);
         }
         if (!is_string($key) && !is_int($key) && !is_float($key)) {
-            trigger_error('\Jenner\Zebra\ArrayGroupBy::groupByFieldDeep(): The key should be a string or an integer', E_USER_ERROR);
+            $message = '\Jenner\Zebra\ArrayGroupBy::groupByFieldDeep(): The key should be a string or an integer';
+            throw new \InvalidArgumentException($message);
         }
         // Load the new array, splitting by the target key
         $grouped = array();
@@ -190,8 +199,6 @@ class ArrayGroupBy
     }
 
     /**
-     * 获取多为数组最深的一层数组，并以二维数组的形式返回，
-     * 会对key进行重组，统一转换成数字下标
      * @param $array
      * @return array
      */
@@ -205,7 +212,8 @@ class ArrayGroupBy
                 $arr = [array_values($arr)];
                 $result = array_merge(array_values($result), $arr);
             } else {
-                $result = array_merge(array_values($result), call_user_func("\\Jenner\\Zebra\\ArrayGroupBy::getDeepestArray", $arr));
+                $sub_result = call_user_func("\\Jenner\\Zebra\\ArrayGroupBy::getDeepestArray", $arr);
+                $result = array_merge(array_values($result), $sub_result);
             }
         }
 
@@ -213,7 +221,8 @@ class ArrayGroupBy
     }
 
     /**
-     * 求数组深度，一维数组为1，二维数组为2....
+     * get array depth
+     *
      * @param $array
      * @return int
      */
@@ -234,7 +243,6 @@ class ArrayGroupBy
     }
 
     /**
-     * 将一个二维数组，以其中一列为KEY，一列为VALUE，返回一个一维数组
      * @param array $array
      * @param null $column_key
      * @param $index_key
