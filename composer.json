@@ -3,7 +3,7 @@
     "description": "like mysql group by",
     "license": "MIT",
     "keywords": ["group by", "array"],
-    "version": "v1.3.0",
+    "version": "v1.3.1",
     "authors": [
         {
             "name": "Jenner",
